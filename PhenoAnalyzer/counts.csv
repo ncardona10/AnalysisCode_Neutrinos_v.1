@@ -92,3 +92,15 @@ Path,Cut,Counts
 /disco1/SIMULACIONES/z+jets/z+jets_1/Events/run_01/m_delphes_events.root,noCuts,39993
 /disco1/SIMULACIONES/z+jets/z+jets_1/Events/run_01/m_delphes_events.root,Cuts,980
 /disco1/SIMULACIONES/z+jets/z+jets_1/Events/run_01/m_delphes_events.root,Leptons cuts,3
+/disco3/SIMULACIONES/NATP/W_channel/W_channel_1/Events/run_01/tag_1_delphes_events.root,C0,10000
+/disco3/SIMULACIONES/NATP/W_channel/W_channel_1/Events/run_01/tag_1_delphes_events.root,noCuts,10000
+/disco3/SIMULACIONES/NATP/W_channel/W_channel_1/Events/run_01/tag_1_delphes_events.root,Cuts,3602
+/disco3/SIMULACIONES/NATP/W_channel/W_channel_1/Events/run_01/tag_1_delphes_events.root,Leptons cuts,391
+/disco3/SIMULACIONES/NATP/W_channel/W_channel_1/Events/run_01/tag_1_delphes_events.root,C0,10000
+/disco3/SIMULACIONES/NATP/W_channel/W_channel_1/Events/run_01/tag_1_delphes_events.root,noCuts,10000
+/disco3/SIMULACIONES/NATP/W_channel/W_channel_1/Events/run_01/tag_1_delphes_events.root,Cuts,3602
+/disco3/SIMULACIONES/NATP/W_channel/W_channel_1/Events/run_01/tag_1_delphes_events.root,Leptons cuts,391
+/disco3/SIMULACIONES/NATP/W_channel/W_channel_1/Events/run_01/tag_1_delphes_events.root,C0,10000
+/disco3/SIMULACIONES/NATP/W_channel/W_channel_1/Events/run_01/tag_1_delphes_events.root,noCuts,10000
+/disco3/SIMULACIONES/NATP/W_channel/W_channel_1/Events/run_01/tag_1_delphes_events.root,Cuts,3602
+/disco3/SIMULACIONES/NATP/W_channel/W_channel_1/Events/run_01/tag_1_delphes_events.root,Leptons cuts,391

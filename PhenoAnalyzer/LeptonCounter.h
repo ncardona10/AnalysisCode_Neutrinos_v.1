@@ -42,7 +42,7 @@ int ptEtaPhiMjjMt(ExRootTreeReader *treeReader,
 
   int numEvents = 0;
 
-  vector<string> variables = {"pt", "eta", "phi"};
+  vector<string> variables = {"pt", "eta", "phi", "Mt"};
   vector<string> particleTypes = {"electron",
                                   "muon",
                                   "tau",
@@ -67,6 +67,10 @@ int ptEtaPhiMjjMt(ExRootTreeReader *treeReader,
       {
         x_max = TMath::Pi();
         x_min = -TMath::Pi();
+      }
+      else if (variables[i].compare("Mt") == 0)
+      {
+        x_max = 1000;
       }
       else
       {
@@ -107,6 +111,9 @@ int ptEtaPhiMjjMt(ExRootTreeReader *treeReader,
             histos["pttau"]->Fill(jet->PT);
             histos["etatau"]->Fill(jet->Eta);
             histos["phitau"]->Fill(normalizedDphi(jet->Phi));
+
+	    double mtval = mt(jet->PT, MET, jet->Phi - METPointer->Phi);
+            histos["Mttau"]->Fill(mtval);
           }
         }
       }
@@ -123,6 +130,9 @@ int ptEtaPhiMjjMt(ExRootTreeReader *treeReader,
           histos["ptelectron"]->Fill(electron->PT);
           histos["etaelectron"]->Fill(electron->Eta);
           histos["phielectron"]->Fill(normalizedDphi(electron->Phi));
+
+          double mtval = mt(electron->PT, MET, electron->Phi - METPointer->Phi);
+          histos["Mtelectron"]->Fill(mtval);
         }
       }
 
@@ -135,6 +145,9 @@ int ptEtaPhiMjjMt(ExRootTreeReader *treeReader,
         histos["ptmuon"]->Fill(muon->PT);
         histos["etamuon"]->Fill(muon->Eta);
         histos["phimuon"]->Fill(normalizedDphi(muon->Phi));
+
+          double mtval = mt(muon->PT, MET, muon->Phi - METPointer->Phi);
+          histos["Mtmuon"]->Fill(mtval);
       }
 
       //jets
@@ -147,6 +160,10 @@ int ptEtaPhiMjjMt(ExRootTreeReader *treeReader,
           histos["ptjet"]->Fill(jet->PT);
           histos["etajet"]->Fill(jet->Eta);
           histos["phijet"]->Fill(normalizedDphi(jet->Phi));
+
+            //Doesnt make sense but needed to keep code symmetry
+            double mtval = mt(jet->PT, MET, jet->Phi - METPointer->Phi);
+            histos["Mtjet"]->Fill(mtval);
         }
       }
 
