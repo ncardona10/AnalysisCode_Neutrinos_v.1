@@ -42,7 +42,7 @@ int ptEtaPhiMjjMt(ExRootTreeReader *treeReader,
 
   int numEvents = 0;
 
-  vector<string> variables = {"pt", "eta", "phi", "Mt"};
+  vector<string> variables = {"pt", "eta", "phi", "Mt", "leadingPT", "dphi_MET_"};
   vector<string> particleTypes = {"electron",
                                   "muon",
                                   "tau",
@@ -58,7 +58,7 @@ int ptEtaPhiMjjMt(ExRootTreeReader *treeReader,
       float x_min = 0.0;
       float x_max = 15.0;
 
-      if (variables[i].compare("pt") == 0)
+      if (variables[i].compare("pt") == 0 || variables[i].compare("leadingPT") == 0)
       {
         x_max = 500;
         bins = 500;
@@ -67,6 +67,10 @@ int ptEtaPhiMjjMt(ExRootTreeReader *treeReader,
       {
         x_max = TMath::Pi();
         x_min = -TMath::Pi();
+      }
+      else if (variables[i].compare("dphi_MET_") == 0)
+      {
+        x_max = TMath::Pi()*2;
       }
       else if (variables[i].compare("Mt") == 0)
       {
@@ -100,6 +104,8 @@ int ptEtaPhiMjjMt(ExRootTreeReader *treeReader,
       double MET = METPointer->MET;
 
       // taus
+      float maxPt_tau = -1.0;
+      Jet *leadingTau;
       for (int leaf = 0; leaf < branchDict["Jet"]->GetEntries(); leaf++)
       {
         Jet *jet = (Jet *)branchDict["Jet"]->At(leaf);
@@ -112,15 +118,29 @@ int ptEtaPhiMjjMt(ExRootTreeReader *treeReader,
             histos["etatau"]->Fill(jet->Eta);
             histos["phitau"]->Fill(normalizedDphi(jet->Phi));
 
-	    double mtval = mt(jet->PT, MET, jet->Phi - METPointer->Phi);
+            double mtval = mt(jet->PT, MET, jet->Phi - METPointer->Phi);
             histos["Mttau"]->Fill(mtval);
+
+            //leading pt
+            if(jet->PT > maxPt_tau)
+            {
+              maxPt_tau = jet->PT;
+              leadingTau = jet;
+            }
           }
         }
       }
+      if (maxPt_tau != -1.0)
+      {
+        histos["leadingPTtau"]->Fill(maxPt_tau);
+        float dphi = abs(normalizedDphi(leadingTau->Phi)-normalizedDphi(METPointer->Phi));
+        histos["dphi_MET_tau"]->Fill(dphi);
+      }
 
-      cout << "electrons" << endl;
 
       // electrons
+      float maxPt_electrons = -1.0;
+      Electron *leadingElectron;
       for (int leaf = 0; leaf < branchDict["Electron"]->GetEntries(); leaf++)
       {
         Electron *electron = (Electron *)branchDict["Electron"]->At(leaf);
@@ -133,38 +153,81 @@ int ptEtaPhiMjjMt(ExRootTreeReader *treeReader,
 
           double mtval = mt(electron->PT, MET, electron->Phi - METPointer->Phi);
           histos["Mtelectron"]->Fill(mtval);
+
+          //leading pt
+          if(electron->PT > maxPt_electrons)
+          {
+            maxPt_electrons = electron->PT;
+            leadingElectron = electron;
+          }
         }
       }
+      if (maxPt_electrons != -1.0)
+      {
+        histos["leadingPTelectron"]->Fill(maxPt_electrons);
+        float dphi = abs(normalizedDphi(leadingElectron->Phi)-normalizedDphi(METPointer->Phi));
+        histos["dphi_MET_electron"]->Fill(dphi);
+      }
 
-      cout << "muons" << endl;
       // muons
+      float maxPt_muons = -1.0;
+      Muon *leadingMuon;
       for (int leaf = 0; leaf < branchDict["Muon"]->GetEntries(); leaf++)
       {
         Muon *muon = (Muon *)branchDict["Muon"]->At(leaf);
-
-        histos["ptmuon"]->Fill(muon->PT);
-        histos["etamuon"]->Fill(muon->Eta);
-        histos["phimuon"]->Fill(normalizedDphi(muon->Phi));
+        if ((abs(muon->Eta) < 2.4) && (muon->PT > 5.0))
+        {
+          histos["ptmuon"]->Fill(muon->PT);
+          histos["etamuon"]->Fill(muon->Eta);
+          histos["phimuon"]->Fill(normalizedDphi(muon->Phi));
 
           double mtval = mt(muon->PT, MET, muon->Phi - METPointer->Phi);
           histos["Mtmuon"]->Fill(mtval);
+
+          //leading pt
+          if(muon->PT > maxPt_muons)
+          {
+            maxPt_muons = muon->PT;
+            leadingMuon = muon;
+          }
+        }
+      }
+      if (maxPt_muons != -1.0)
+      {
+        histos["leadingPTmuon"]->Fill(maxPt_muons);
+        float dphi = abs(normalizedDphi(leadingMuon->Phi)-normalizedDphi(METPointer->Phi));
+        histos["dphi_MET_muon"]->Fill(dphi);
       }
 
-      //jets
+      //jets: jets minimum cuts are applied in jets cuts
+      float maxPt_jet = -1.0;
+      Jet *leadingJet;
       for (int leaf = 0; leaf < branchDict["Jet"]->GetEntries(); leaf++)
       {
         Jet *jet = (Jet *)branchDict["Jet"]->At(leaf);
-
         if (!jet->TauTag)
         {
           histos["ptjet"]->Fill(jet->PT);
           histos["etajet"]->Fill(jet->Eta);
           histos["phijet"]->Fill(normalizedDphi(jet->Phi));
 
-            //Doesnt make sense but needed to keep code symmetry
-            double mtval = mt(jet->PT, MET, jet->Phi - METPointer->Phi);
-            histos["Mtjet"]->Fill(mtval);
+          //Doesnt make sense but needed to keep code symmetry
+          double mtval = mt(jet->PT, MET, jet->Phi - METPointer->Phi);
+          histos["Mtjet"]->Fill(mtval);
+
+          //leading pt
+          if(jet->PT > maxPt_jet)
+          {
+            maxPt_jet = jet->PT;
+            leadingJet = jet;
+          }
         }
+      }
+      if (maxPt_jet != -1.0)
+      {
+        histos["leadingPTjet"]->Fill(maxPt_jet);
+        float dphi = abs(normalizedDphi(leadingJet->Phi)-normalizedDphi(METPointer->Phi));
+        histos["dphi_MET_jet"]->Fill(dphi);        
       }
 
       //MET

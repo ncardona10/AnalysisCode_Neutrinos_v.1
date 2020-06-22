@@ -363,7 +363,7 @@ bool nParticle_atLeast(ExRootTreeReader *treeReader,
     int i = 0;
     vector<TLorentzVector> particleCharacteristics;
 
-    while (nElectrons >= n_electrons && i < branchDict["Electron"]->GetEntries())
+    while (nElectrons <= n_electrons && i < branchDict["Electron"]->GetEntries())
     {
       Electron *elec = (Electron *)branchDict["Electron"]->At(i);
       if (elec->PT >= 8 && abs(elec->Eta) < 2.4)
@@ -386,7 +386,7 @@ bool nParticle_atLeast(ExRootTreeReader *treeReader,
       i++;
     }
 
-    if (nElectrons == n_electrons)
+    if (nElectrons >= n_electrons)
     {
       //verify number of muons
       int nMuons = 0;
@@ -394,7 +394,7 @@ bool nParticle_atLeast(ExRootTreeReader *treeReader,
 
       particleCharacteristics.clear();
 
-      while (nMuons >= n_muon && i < branchDict["Muon"]->GetEntries())
+      while (nMuons <= n_muon && i < branchDict["Muon"]->GetEntries())
       {
         Muon *muon = (Muon *)branchDict["Muon"]->At(i);
         if (muon->PT >= 5 && abs(muon->Eta) < 2.4)
@@ -417,14 +417,14 @@ bool nParticle_atLeast(ExRootTreeReader *treeReader,
         i++;
       }
 
-      if (nMuons == n_muon)
+      if (nMuons >= n_muon)
       {
         //verify number of taus
         int nTaus = 0;
         int i = 0;
         particleCharacteristics.clear();
 
-        while (nTaus >= n_tau && i < branchDict["Jet"]->GetEntries())
+        while (nTaus <= n_tau && i < branchDict["Jet"]->GetEntries())
         {
           Jet *jet = (Jet *)branchDict["Jet"]->At(i);
           if (jet->TauTag == 1)
@@ -440,7 +440,7 @@ bool nParticle_atLeast(ExRootTreeReader *treeReader,
           }
           i++;
         }
-        return nTaus == n_tau;
+        return nTaus >= n_tau;
       }
       else
       {
@@ -462,7 +462,7 @@ bool nParticle_atLeast(ExRootTreeReader *treeReader,
 MULTILEPTONS CHANNEL
 */
 
-bool mu_mu_e(ExRootTreeReader *treeReader,
+bool mu_mu_e_atLeast(ExRootTreeReader *treeReader,
               map<string, TClonesArray *> branchDict,
               int entry,
               vector<int> &cutsArr)

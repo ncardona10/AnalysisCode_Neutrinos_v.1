@@ -41,11 +41,8 @@ int main(int argc, char *argv[])
   // directory to store the histograms
   TDirectory *noCutsDirectory = HistoOutputFile->mkdir("noCuts");
 
-  // directory to store the histograms after the jets cuts
-  TDirectory *jetsCutsDirectory = HistoOutputFile->mkdir("jetsCuts");
-
-  // directory to store the histograms after the leptons cuts
-  TDirectory *leptonsCutsDirectory = HistoOutputFile->mkdir("leptonsCuts");
+  // directory to store the histograms after the mu_mu_e cuts
+  TDirectory *mu_mu_eCutsDirectory = HistoOutputFile->mkdir("mu_mu_e");
 
   // get tree info
   vector<string> branches = {
@@ -89,23 +86,14 @@ int main(int argc, char *argv[])
 
   writeCsv(nEvents, string(argv[1]), "noCuts");
 
-  // -----------------------------------Jets cuts-----------------------------------------
+  // -----------------------------------MU MU E cuts---------------------------------------
 
-  jetsCutsDirectory->cd();
-  cout << "Jets cuts" << endl;
-  nEvents = ptEtaPhiMjjMt(treeReader, branchDict, cutsArr, jetsCuts);
-  cout << "Jets cuts done." << endl;
+  mu_mu_eCutsDirectory->cd();
+  cout << "mu_mu_e cuts" << endl;
+  nEvents = ptEtaPhiMjjMt(treeReader, branchDict, cutsArr, mu_mu_e_atLeast);
+  cout << "mu_mu_e cuts done." << endl;
 
-  writeCsv(nEvents, string(argv[1]), "Cuts");
-
-  // -----------------------------------Leptons cuts--------------------------------------
-
-  leptonsCutsDirectory->cd();
-  cout << "Leptons cuts" << endl;
-  nEvents = ptEtaPhiMjjMt(treeReader, branchDict, cutsArr, leptonsCuts);
-  cout << "Leptons cuts done." << endl;
-
-  writeCsv(nEvents, string(argv[1]), "Leptons cuts");
+  writeCsv(nEvents, string(argv[1]), "mu_mu_e");
 
   // ------------------------------------------------------------------------------------
 
