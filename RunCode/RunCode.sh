@@ -1,19 +1,19 @@
 #Directories
 #/disco1/SIMULACIONES/w+jets/w+jets_460/Events/run_01/m_delphes_events.root
 #--------------------------------------------------------------
-ANALYZERFOLDER="/home/n.cardonac/AnalysisCode_SUSY_VBF_Higgsino"
-PHENOANALYZERFOLDER="/home/n.cardonac/AnalysisCode_SUSY_VBF_Higgsino/PhenoAnalyzer/"
+ANALYZERFOLDER="/home/n.cardonac/AnalysisCode_Neutrinos_v.1"
+PHENOANALYZERFOLDER="/home/n.cardonac/AnalysisCode_Neutrinos_v.1/PhenoAnalyzer/"
 PHENOANALYZEREXE="PhenoAnalyzer"
-INROOTFILE="Events/run_01/m_delphes_events.root"
-TEMPORALFOLDER="/home/n.cardonac/AnalysisCode_SUSY_VBF_Higgsino/RunCode/outPuts/temporal"
-OUTPUTFOLDER="/home/n.cardonac/AnalysisCode_SUSY_VBF_Higgsino/RunCode/outPuts/higgsino_complete"
+INROOTFILE="Events/run_01/m__delphes_events.root"
+TEMPORALFOLDER="/home/n.cardonac/AnalysisCode_Neutrinos_v.1/RunCode/outPuts/temporal"
+OUTPUTFOLDER="/home/n.cardonac/AnalysisCode_Neutrinos_v.1/RunCode/outPuts/w-channel"
 #--------------------------------------------------------------
 # Processes
 #---------------------------------------------------------------
-PROCESSFOLDER[1]="/disco2/SIMULACIONES/ttbar"
-PROCESSSSUBFOLDER[1]="ttbar"
-RUNS[1]=500
-TIMES[1]=1
+PROCESSFOLDER[1]="/disco3/SIMULACIONES/NATP/W_channel"
+PROCESSSSUBFOLDER[1]="W_channel"
+RUNS[1]=1
+TIMES[1]=2
 
 PROCESSFOLDER[2]="/disco1/SIMULACIONES/z+jets"
 PROCESSSSUBFOLDER[2]="z+jets"
@@ -25,13 +25,13 @@ PROCESSSSUBFOLDER[3]="w+jets"
 RUNS[3]=550
 TIMES[3]=1
 
-PROCESSFOLDER[4]="/disco3/SIMULACIONES/ww"
-PROCESSSSUBFOLDER[4]="ww"
+PROCESSFOLDER[4]="/disco3/SIMULACIONES/www"
+PROCESSSSUBFOLDER[4]="www"
 RUNS[4]=250
 TIMES[4]=1
 
-PROCESSFOLDER[5]="/disco3/SIMULACIONES/zz"
-PROCESSSSUBFOLDER[5]="zz"
+PROCESSFOLDER[5]="/disco3/SIMULACIONES/zzz"
+PROCESSSSUBFOLDER[5]="zzz"
 RUNS[5]=200
 TIMES[5]=1
 
@@ -65,7 +65,7 @@ TIMES[10]=1
 # index process to run
 #-----------------------
 INDEX[1]=1
-INDEX[2]=10
+INDEX[2]=1
 #----------------------
 
 # Cut value
