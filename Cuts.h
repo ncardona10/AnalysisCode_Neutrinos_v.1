@@ -477,3 +477,19 @@ bool e_e_e_atLeast(ExRootTreeReader *treeReader,
 {
   return nParticle_atLeast(treeReader, branchDict, entry, 3, 0, 0, cutsArr, false, false, false);
 }
+
+bool mu_mu_mu_atLeast(ExRootTreeReader *treeReader,
+              map<string, TClonesArray *> branchDict,
+              int entry,
+              vector<int> &cutsArr)
+{
+  return nParticle_atLeast(treeReader, branchDict, entry, 0, 3, 0, cutsArr, false, false, false);
+}
+
+bool e_e_mu_atLeast(ExRootTreeReader *treeReader,
+              map<string, TClonesArray *> branchDict,
+              int entry,
+              vector<int> &cutsArr)
+{
+  return nParticle_atLeast(treeReader, branchDict, entry, 2, 1, 0, cutsArr, false, false, false);
+}

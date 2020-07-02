@@ -47,6 +47,12 @@ int main(int argc, char *argv[])
   // directory to store the histograms after the e_e_e cuts
   TDirectory *e_e_eCutsDirectory = HistoOutputFile->mkdir("e_e_e");
 
+  // directory to store the histograms after the mu_mu_mu cuts
+  TDirectory *mu_mu_muCutsDirectory = HistoOutputFile->mkdir("mu_mu_mu");
+
+  // directory to store the histograms after the e_e_mu cuts
+  TDirectory *e_e_muCutsDirectory = HistoOutputFile->mkdir("e_e_mu");
+
   // get tree info
   vector<string> branches = {
       "Electron",
@@ -70,7 +76,7 @@ int main(int argc, char *argv[])
   {
     cutsArr.push_back(1);
   }
-  
+
   int nEvents;
 
   // write number of events to csv
@@ -106,6 +112,24 @@ int main(int argc, char *argv[])
   cout << "e_e_e cuts done." << endl;
 
   writeCsv(nEvents, string(argv[1]), "e_e_e");
+
+  // -----------------------------------MU MU MU cuts---------------------------------------
+
+  mu_mu_muCutsDirectory->cd();
+  cout << "mu_mu_mu cuts" << endl;
+  nEvents = ptEtaPhiMjjMt(treeReader, branchDict, cutsArr, mu_mu_mu_atLeast);
+  cout << "mu_mu_mu cuts done." << endl;
+
+  writeCsv(nEvents, string(argv[1]), "mu_mu_mu");
+
+  // -----------------------------------E E MU cuts---------------------------------------
+
+  e_e_muCutsDirectory->cd();
+  cout << "e_e_mu cuts" << endl;
+  nEvents = ptEtaPhiMjjMt(treeReader, branchDict, cutsArr, e_e_mu_atLeast);
+  cout << "e_e_mu cuts done." << endl;
+
+  writeCsv(nEvents, string(argv[1]), "e_e_mu");
 
   // ------------------------------------------------------------------------------------
 

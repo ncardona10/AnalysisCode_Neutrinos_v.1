@@ -4,7 +4,7 @@
 ANALYZERFOLDER="/home/n.cardonac/AnalysisCode_Neutrinos_v.1"
 PHENOANALYZERFOLDER="/home/n.cardonac/AnalysisCode_Neutrinos_v.1/PhenoAnalyzer/"
 PHENOANALYZEREXE="PhenoAnalyzer"
-INROOTFILE="Events/run_01/m__delphes_events.root"
+INROOTFILE="Events/run_01/m_delphes_events.root"
 TEMPORALFOLDER="/home/n.cardonac/AnalysisCode_Neutrinos_v.1/RunCode/outPuts/temporal"
 OUTPUTFOLDER="/home/n.cardonac/AnalysisCode_Neutrinos_v.1/RunCode/outPuts/w-channel"
 #--------------------------------------------------------------
@@ -15,9 +15,9 @@ PROCESSSSUBFOLDER[1]="W_channel"
 RUNS[1]=1
 TIMES[1]=2
 
-PROCESSFOLDER[2]="/disco1/SIMULACIONES/z+jets"
-PROCESSSSUBFOLDER[2]="z+jets"
-RUNS[2]=450
+PROCESSFOLDER[2]="/disco1/SIMULACIONES/www"
+PROCESSSSUBFOLDER[2]="www"
+RUNS[2]=50
 TIMES[2]=1
 
 PROCESSFOLDER[3]="/disco1/SIMULACIONES/w+jets"
@@ -114,3 +114,4 @@ for ((i = $start_cut; i <= $end_cut; i = i + $delta)); do
 		echo FINISH ${PROCESSSSUBFOLDER[$j]}
 	done
 done
+
